@@ -1,5 +1,18 @@
 <template>
     <div class="home">
-        <img alt="Vue logo" src="../assets/logo.png" />
+        <p>{{ title }}</p>
     </div>
 </template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+    setup() {
+        const title = ref('标题')
+        return {
+            title
+        }
+    }
+}
+</script>
