@@ -5,7 +5,7 @@ module.exports = {
     productionSourceMap: false,
 
     // 打包路径
-    // outputDir: `build_${process.env.VUE_APP_OUTPUT || ''}`,
+    outputDir: `build_${process.env.VUE_APP_OUTPUT_DIR || ''}`,
 
     integrity: true,
 
