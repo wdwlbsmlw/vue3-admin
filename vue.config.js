@@ -13,4 +13,12 @@ module.exports = {
         // 设置导入前缀映射
         config.resolve.alias.set('@', path.join(__dirname, 'src'))
     },
+
+    css: {
+        loaderOptions: {
+            sass: {
+                additionalData: `@import "@/styles/var.scss";`
+            }
+        }
+    }
 }

@@ -3,10 +3,14 @@ import ElementPlus from 'element-plus'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import 'element-plus/lib/theme-chalk/index.css'
+import { registerComponents } from './plugins/components'
+import './styles/app.scss'
 
 const app = createApp(App)
 app.use(store)
 app.use(router)
 app.use(ElementPlus, { size: 'default', zIndex: 3000 })
+
+registerComponents(app)
+
 app.mount('#app')
