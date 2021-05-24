@@ -4,26 +4,25 @@ const routes = [
     {
         path: '/',
         name: 'Login',
-        component: () => import(/* webpackChunkName: "login" */ '../views/Login/index.vue'),
+        component: () => import(/* webpackChunkName: "login" */ '../views/Login'),
     },
     {
         path: '/main',
         name: 'layout',
-        component: () => import('../components/Layout'),
-        redirect: 'home',
+        component: () => import(/* webpackChunkName: "layout" */ '../components/Layout'),
         children: [
             {
-                path: '/home',
+                path: 'home',
                 name: 'home',
                 component: () => import(/* webpackChunkName: "home" */ '../views/Home'),
             },
             {
-                path: '/table/one',
+                path: 'table/one',
                 name: 'table.one',
                 component: () => import(/* webpackChunkName: "table" */ '../views/Table'),
-            }
-        ]
-    }
+            },
+        ],
+    },
 ]
 
 const router = createRouter({

@@ -1,26 +1,36 @@
 import { reactive, ref } from 'vue'
 
-const useTableList = async (api, params = {}) => {
+/**
+ * 通用表格查询
+ * @param {Function} api 
+ * @param {Object} params 
+ * @returns Reactive
+ */
+const useTableList = (api, params = {}) => {
     const loading = ref(false)
     const error = ref()
-    const data = reactive({ 
-        list: []
+    const data = reactive({
+        page: 1,
+        pageSize: 20,
+        list: [],
     })
 
-    try {
-        loading.value = true
-        data.list = await api(params)
-
-        loading.value = false
-    } catch (e) {
-        error.value = e
-        data.list = []
-        loading.value = false
-    }
+    loading.value = true
+    api(params)
+        .then(res => {
+            console.log(res)
+            data.list = res.data
+            loading.value = false
+        })
+        .catch(e => {
+            error.value = e
+            data.list = []
+            loading.value = false
+        })
     return {
         data,
         loading,
-        error
+        error,
     }
 }
 

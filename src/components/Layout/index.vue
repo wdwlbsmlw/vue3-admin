@@ -16,3 +16,15 @@
         </el-container>
     </el-container>
 </template>
+
+<script>
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+    name: 'Layout',
+    
+    setup() {
+        return {}   
+    }
+})
+</script>
