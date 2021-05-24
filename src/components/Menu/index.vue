@@ -1,5 +1,5 @@
 <template>
-    <!-- <el-menu router>
+    <el-menu :default-active="activeIndex" router>
         <el-menu-item index="home" :route="{ name: 'home' }">
             <i class="el-icon-menu"></i>
             <template #title>首页</template>
@@ -10,22 +10,28 @@
                 <span>表格</span>
             </template>
             <el-menu-item index="table.one" :route="{ name: 'table.one' }">表格一</el-menu-item>
+            <el-menu-item index="table.page" :route="{ name: 'table.page' }">表格分页</el-menu-item>
         </el-submenu>
-    </el-menu> -->
-    <div class="menu">
-        <ul>
-            <li>
-                <router-link :to="{name: 'home'}">首页</router-link>
-                <router-link :to="{name: 'table.one'}">表格</router-link>
-            </li>
-        </ul>
-    </div>
+    </el-menu>
 </template>
 
 <script>
-export default {
-    name: 'Menu'
-}
+import { computed, defineComponent } from 'vue'
+import {useRoute} from 'vue-router'
+
+export default defineComponent({
+    name: 'Menu',
+
+    setup() {
+        const route = useRoute()
+
+        const activeIndex = computed(() => route.name)
+
+        return {
+            activeIndex
+        }
+    }
+})
 </script>
 
 <style lang="scss">

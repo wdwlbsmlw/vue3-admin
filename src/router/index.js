@@ -2,12 +2,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
     {
-        path: '/',
-        name: 'Login',
+        path: '/login',
+        name: 'login',
         component: () => import(/* webpackChunkName: "login" */ '../views/Login'),
     },
     {
-        path: '/main',
+        path: '/',
         name: 'layout',
         component: () => import(/* webpackChunkName: "layout" */ '../components/Layout'),
         children: [
@@ -21,8 +21,17 @@ const routes = [
                 name: 'table.one',
                 component: () => import(/* webpackChunkName: "table" */ '../views/Table'),
             },
+            {
+                path: 'table/page',
+                name: 'table.page',
+                component: () => import(/* webpackChunkName: "tablepage" */ '../views/TablePage'),
+            },
         ],
     },
+    {
+        path: '/:pathMatch(.*)*',
+        redirect: '/'
+    }
 ]
 
 const router = createRouter({

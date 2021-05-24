@@ -12,14 +12,15 @@ const useTableList = (api, params = {}) => {
     const data = reactive({
         page: 1,
         pageSize: 20,
+        total: 0,
         list: [],
     })
 
     loading.value = true
     api(params)
         .then(res => {
-            console.log(res)
             data.list = res.data
+            data.total = res.total || res.data.length
             loading.value = false
         })
         .catch(e => {

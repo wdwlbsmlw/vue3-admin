@@ -19,12 +19,19 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default defineComponent({
     name: 'Layout',
     
     setup() {
-        return {}   
+        const router = useRouter()
+        const route = useRoute()
+        const store = useStore()
+        if (!store.state.Login.token || !store.state.Login.user) router.push('/login')
+        else if (route.name === 'layout') router.push('/home')
+        return {}
     }
 })
 </script>
