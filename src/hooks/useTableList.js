@@ -43,6 +43,12 @@ const useTableList = (api, options = {}) => {
     // 生成查询参数
     const generatorParams = () => {
         let _query = ctx.$utils.hasKey(options, 'query') ? options.query : {}
+        const _sort = {}
+        if (Object.keys(data.sort).length > 0) {
+            Object.keys(data.sort).forEach(key => {
+                _sort[key] = data.sort[key]
+            })
+        }
         const _params = {
             page: data.page,
             pageSize: data.pageSize,
@@ -50,7 +56,7 @@ const useTableList = (api, options = {}) => {
                 ..._query,
                 ...search
             },
-            sort: data.sort
+            sort: _sort
         }
         return _params
     }
@@ -78,13 +84,19 @@ const useTableList = (api, options = {}) => {
         getList()
     }
 
+    // Search Event
+    const handleSearch = () => {
+        if (data.page > 1) data.page = 1
+        getList()
+    }
+
     getList()
 
     return {
         data,
         search,
         tableEvent: {
-            handleSearch: getList,
+            handleSearch,
             handlePageChange,
             handleSizeChange,
             handleSortChange
