@@ -1,5 +1,5 @@
 <template>
-    <div v-loading="loading">
+    <div v-loading="data.loading">
         <el-table :data="data.list" style="width: 100%">
             <el-table-column prop="id" label="ID" width="180"> </el-table-column>
             <el-table-column prop="name" label="姓名" width="180"> </el-table-column>
@@ -17,11 +17,9 @@ export default defineComponent({
     name: 'TableOne',
 
     setup() {
-        const { data, loading, error } = useTableList(GetTable)
+        const {data} = useTableList(GetTable)
         return {
-            data,
-            loading,
-            error,
+            data
         }
     },
 })

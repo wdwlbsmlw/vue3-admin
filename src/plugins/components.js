@@ -8,9 +8,11 @@ const components = {
     Menu
 }
 
-export const registerComponents = app => {
-    for (const key in components) {
-        const com = components[key]
-        app.component(com.name, com)
+export default {
+    install: app => {
+        for (const key in components) {
+            const com = components[key]
+            app.component(com.name, com)
+        }
     }
 }
