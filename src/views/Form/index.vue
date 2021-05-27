@@ -1,14 +1,17 @@
 <template>
     <div>
-        <form-create v-model="form" :options="options" @submit="onSubmit"></form-create>
+        <form-create ref="fc" v-model="form" :options="options" @submit="onSubmit"></form-create>
+
+        <el-button @click="test">test</el-button>
     </div>
 </template>
 
 <script>
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
 
 export default defineComponent({
     setup() {
+        const fc = ref(null)
         const form = reactive({})
         const options = {
             form: {
@@ -117,14 +120,20 @@ export default defineComponent({
                 }
             ]
         }
+        
         const onSubmit = (formData) => {
             console.log(formData)
         }
 
+        const test = () => {
+            console.log(fc.value.form.age = 20)
+        }
         return {
+            fc,
             form,
             options,
-            onSubmit
+            onSubmit,
+            test
         }
     }
 })

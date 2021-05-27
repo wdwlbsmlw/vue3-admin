@@ -48,17 +48,12 @@ export default defineComponent({
                         display: col.hidden ? 'none' : 'block'
                     }
                 }, () => h(components[_tagname], {
-                    modelValue: this.value,
+                    modelValue: this.form[col.field.key],
                     ...col.field.props,
                     onInput: val => {
-                        console.log('input,', val)
-                        // this.value = val
-                        this.$emit('update:modelValue', val)
-                    },
-                    'onUpdate:modelValue': val => {
-                        // this.form[col.field.key] = val
-                        // console.log('update', val)
-                        this.$emit('update:modelValue', val)
+                        this.form[col.field.key] = val
+                        // 触发自定义事件
+                        if (this.$utils.hasKey(col.field, 'on') && this.$utils.hasKey(col.field.on, 'change')) col.field.on.change(val)
                     }
                 }))
                 return h(components.ElCol, col.props, () => _field)
@@ -70,16 +65,17 @@ export default defineComponent({
             return h(components.ElButton, {
                 type: 'primary',
                 onClick: () => {
-                    this.$refs.form.validate(valid => {
+                    this.$refs.formRef.validate(valid => {
                         if (!valid) return
                         this.$notify.info('提交成功')
+                        console.log(this.form)
                     })
                 }
             }, () => '提交')
         }))
 
         return h(components.ElForm, {
-            ref: 'form',
+            ref: 'formRef',
             model: this.form,
             rules: this.rules,
             ...this.options.form
