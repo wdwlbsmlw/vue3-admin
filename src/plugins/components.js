@@ -1,11 +1,13 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Menu from '@/components/Menu'
+import FormCreate from '@/components/FormCreate/index.vue'
 
 const components = {
     Header,
     Footer,
-    Menu
+    Menu,
+    FormCreate
 }
 
 export default {

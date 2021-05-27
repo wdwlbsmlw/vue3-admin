@@ -26,6 +26,11 @@ const routes = [
                 name: 'table.page',
                 component: () => import(/* webpackChunkName: "tablepage" */ '../views/TablePage'),
             },
+            {
+                path: 'form',
+                name: 'form',
+                component: () => import(/* webpackChunkName: "form" */ '../views/Form'),
+            },
         ],
     },
     {

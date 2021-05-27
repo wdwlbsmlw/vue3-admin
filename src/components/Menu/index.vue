@@ -4,6 +4,10 @@
             <i class="el-icon-menu"></i>
             <template #title>首页</template>
         </el-menu-item>
+        <el-menu-item index="form" :route="{ name: 'form' }">
+            <i class="el-icon-menu"></i>
+            <template #title>表单</template>
+        </el-menu-item>
         <el-submenu index="table">
             <template #title>
                 <i class="el-icon-location"></i>
