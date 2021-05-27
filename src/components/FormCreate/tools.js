@@ -1,3 +1,6 @@
+import {h} from 'vue'
+import { components } from '@/plugins/element-plus'
+
 /**
  * 生成默认值
  * @param { String } type
@@ -43,6 +46,9 @@ export const getElementTag = type => {
         case 'input':
             _tag = 'ElInput'
             break
+        case 'select':
+            _tag = 'ElSelect'
+            break
         default:
             _tag = 'ElInput'
             break
@@ -72,4 +78,18 @@ export const generaterFormAndRules = ui => {
     } catch (e) {
         console.log(e)
     }
+}
+
+/**
+ * 生成options
+ * @param {Array} list 
+ */
+export const generaterOptions = (list = []) => {
+    return list.map(item => {
+        return h(components.ElOption, {
+            value: item.value,
+            label: item.label,
+            disabled: Object.prototype.hasOwnProperty.call(item, 'disabled') ? item.disabled : false
+        })
+    })
 }

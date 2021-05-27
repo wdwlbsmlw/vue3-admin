@@ -13,7 +13,7 @@ export default defineComponent({
     setup() {
         const fc = ref(null)
         const form = reactive({})
-        const options = {
+        const options = reactive({
             form: {
                 labelPosition: 'right', // right|left|top
                 labelWidth: '120px', // Number unit.px
@@ -31,14 +31,18 @@ export default defineComponent({
                     type: 'row',
                     props: {
                         gutter: 10,
-                        type: 'default'
+                        type: 'default',
                     },
                     children: [
-                        { 
+                        {
                             type: 'col',
                             hidden: false,
                             props: {
                                 span: 12, // undefined
+                                xs: 24,
+                                sm: 24,
+                                md: 12,
+                                lg: 8,
                             },
                             field: {
                                 dataType: 'String',
@@ -46,23 +50,25 @@ export default defineComponent({
                                 type: 'input',
                                 title: '姓名',
                                 props: {
-                                    type: 'text'
+                                    type: 'text',
                                 },
                                 on: {
-                                    change: (val) => {
+                                    change: val => {
                                         console.log('custom change', val)
-                                    }
+                                    },
                                 },
-                                validate: [
-                                    { required: true, message: '请输入姓名', trigger: 'blur' }
-                                ]
-                            }
+                                validate: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
+                            },
                         },
-                        { 
+                        {
                             type: 'col',
                             hidden: false,
                             props: {
-                                span: 12
+                                span: 12,
+                                xs: 24,
+                                sm: 24,
+                                md: 12,
+                                lg: 8,
                             },
                             field: {
                                 dataType: 'String',
@@ -71,36 +77,25 @@ export default defineComponent({
                                 title: '密码',
                                 props: {
                                     type: 'password',
-                                    placeholder: '请输入密码'
+                                    placeholder: '请输入密码',
                                 },
-                                validate: [
-                                    { required: true, message: '请输入密码', trigger: 'blur' }
-                                ]
-                            }
-                        }
-                    ]
+                                validate: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+                            },
+                        },
+                    ],
                 },
                 {
                     type: 'row',
                     props: {
                         gutter: 10,
-                        type: 'default'
+                        type: 'default',
                     },
                     children: [
-                        { 
+                        {
                             type: 'col',
                             hidden: false,
                             props: {
                                 span: 12, // undefined
-                                offset: 0,
-                                push: 0,
-                                pull: 0,
-                                xs: undefined,
-                                sm: undefined,
-                                md: undefined,
-                                lg: undefined,
-                                xl: undefined,
-                                tag: 'div'
                             },
                             field: {
                                 dataType: 'Number',
@@ -108,33 +103,71 @@ export default defineComponent({
                                 type: 'input',
                                 title: 'Number',
                                 props: {
-                                    type: 'number'
+                                    type: 'number',
                                 },
-                                // validate: [
-                                //     { required: true, type: 'number', message: '请输入Number', trigger: 'change' },
-                                //     { type: 'number', min: 10, max: 100, message: '请输入正确的Number', trigger: 'change' },
-                                // ]
-                            }
-                        }
-                    ]
-                }
-            ]
-        }
-        
-        const onSubmit = (formData) => {
+                                validate: [
+                                    { required: true, type: 'number', message: '请输入Number', trigger: 'change' },
+                                    { type: 'number', min: 10, max: 100, message: '请输入正确的Number', trigger: 'change' },
+                                ],
+                            },
+                        },
+                    ],
+                },
+                {
+                    type: 'row',
+                    props: {
+                        gutter: 10,
+                        type: 'default',
+                    },
+                    children: [
+                        {
+                            type: 'col',
+                            hidden: false,
+                            props: {
+                                span: 12, // undefined
+                            },
+                            field: {
+                                dataType: 'Array',
+                                key: 'type',
+                                type: 'select',
+                                title: '类型',
+                                props: {
+                                    multiple: true,
+                                    size: 'mini',
+                                },
+                                data: [
+                                    { value: '1', label: '1' },
+                                    { value: '2', label: '2' },
+                                ],
+                            },
+                        },
+                    ],
+                },
+            ],
+        })
+
+        const onSubmit = formData => {
             console.log(formData)
         }
 
         const test = () => {
-            console.log(fc.value.form.age = 20)
+            // console.log(fc.value.form.age = 20)
+            options.ui[2].children[0].field.data = [
+                { value: '1', label: '1' },
+                { value: '2', label: '2' },
+                { value: '3', label: '3' },
+                { value: '4', label: '4' },
+                { value: '5', label: '5' },
+            ]
+            fc.value.forceUpdate()
         }
         return {
             fc,
             form,
             options,
             onSubmit,
-            test
+            test,
         }
-    }
+    },
 })
 </script>
