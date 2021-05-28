@@ -1,6 +1,6 @@
 <script>
 import { getCurrentInstance, defineComponent, h, reactive, ref } from 'vue'
-import { generaterFormAndRules, getElementTag } from './tools'
+import { generaterFormAndRules, getElementTag, generaterOptions, generaterRadioGroup } from './tools'
 import {components} from '@/plugins/element-plus'
 
 export default defineComponent({
@@ -43,6 +43,7 @@ export default defineComponent({
                         modelValue: form[col.field.key],
                         ...col.field.props,
                         onInput: val => {
+                            if (_tagname !== 'ElInput') return
                             let _val = col.field.dataType === 'Number' ? Number(val) : val
                             form[col.field.key] = _val
                             // 触发自定义事件
@@ -53,13 +54,11 @@ export default defineComponent({
                             form[col.field.key] = val
                         }
                     }, () => {
-                        if (_tagname === 'ElSelect') {
-                            return col.field.data.map(item => h(components.ElOption, {
-                                key: item.value,
-                                value: item.value,
-                                label: item.label,
-                                disabled: Object.prototype.hasOwnProperty.call(item, 'disabled') ? item.disabled : false
-                            }))
+                        if (_tagname === 'ElSelect') return generaterOptions(col.field.data)
+                        else if (_tagname === 'ElRadio') return col.field.title
+                        else if (_tagname === 'ElRadioGroup') {
+                            let _type = col.field.type.includes('button') ? 'button' : 'radio'
+                            return generaterRadioGroup(col.field.data, _type)
                         }
                         return null
                     }))

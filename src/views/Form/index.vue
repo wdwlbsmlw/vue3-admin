@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form-create ref="fc" v-model="form" :options="options" @submit="onSubmit">
+        <form-create ref="fc" :options="options" @submit="onSubmit">
             <template v-slot:up="{form}">
                 <div>
                     <el-input v-model="form['up']"></el-input>
@@ -18,7 +18,7 @@ import { defineComponent, reactive, ref } from 'vue'
 export default defineComponent({
     setup() {
         const fc = ref(null)
-        const form = reactive({})
+        // const form = reactive({})
         const options = reactive({
             form: {
                 labelPosition: 'right', // right|left|top
@@ -143,7 +143,7 @@ export default defineComponent({
                                 },
                                 data: [
                                     { value: '1', label: '1' },
-                                    { value: '2', label: '2' },
+                                    { value: '2', label: '2', disabled: true },
                                 ],
                             },
                         },
@@ -162,6 +162,56 @@ export default defineComponent({
                         },
                     ],
                 },
+                {
+                    type: 'row',
+                    children: [
+                        {
+                            type: 'col',
+                            props: {
+                                span: 12
+                            },
+                            field: {
+                                key: 'a',
+                                type: 'radio',
+                                title: '单选框'
+                            }
+                        },
+                        {
+                            type: 'col',
+                            props: {
+                                span: 12
+                            },
+                            field: {
+                                dataType: 'Number',
+                                key: 'b',
+                                type: 'radio-group',
+                                title: '单选框组',
+                                data: [
+                                    { value: 1, label: '选项1' },
+                                    { value: 2, label: '选项2' },
+                                ]
+                            }
+                        },
+                        {
+                            type: 'col',
+                            props: {
+                                span: 12
+                            },
+                            field: {
+                                key: 'c',
+                                type: 'radio-group-button',
+                                title: '单选框组',
+                                props: {
+                                    size: 'mini'
+                                },
+                                data: [
+                                    { value: '1', label: '选项1' },
+                                    { value: '2', label: '选项2' },
+                                ]
+                            }
+                        }
+                    ]
+                }
             ],
         })
 
@@ -173,11 +223,13 @@ export default defineComponent({
             fc.value.setUIData('type', 'title', '类型2')
             fc.value.setUIData('type', 'data', [
                 { value: '1', label: '1' },
-                { value: '2', label: '2' },
+                { value: '2', label: '2', disabled: true },
                 { value: '3', label: '3' },
-                { value: '4', label: '4' },
+                { value: '4', label: '4', disabled: true },
                 { value: '5', label: '5' },
             ])
+
+            fc.value.setData('b', 2)
 
             setTimeout(() => {
                 fc.value.setData('type', ['3'])
@@ -187,7 +239,7 @@ export default defineComponent({
         }
         return {
             fc,
-            form,
+            // form,
             options,
             onSubmit,
             test,

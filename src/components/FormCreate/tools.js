@@ -28,7 +28,7 @@ export const getDefaultData = (type, defaultData) => {
 }
 
 /**
- * 生成默认值
+ * 生成Tag
  * @param { String } type
  * @param { Any } defaultData
  * @returns
@@ -39,6 +39,12 @@ export const getElementTag = type => {
     switch (type) {
         case 'radio':
             _tag = 'ElRadio'
+            break
+        case 'radio-group':
+            _tag = 'ElRadioGroup'
+            break
+        case 'radio-group-button':
+            _tag = 'ElRadioGroup'
             break
         case 'checkbox':
             _tag = 'ElCheckbox'
@@ -57,7 +63,7 @@ export const getElementTag = type => {
 }
 
 /**
- * 生成Form
+ * 生成Form&Rules
  * @param {Array} ui
  */
 export const generaterFormAndRules = ui => {
@@ -92,5 +98,20 @@ export const generaterOptions = (list = []) => {
             label: item.label,
             disabled: Object.prototype.hasOwnProperty.call(item, 'disabled') ? item.disabled : false
         })
+    })
+}
+
+/**
+ * 生成Radio
+ * @param {Array} list 
+ */
+ export const generaterRadioGroup = (list = [], type = 'radio') => {
+    let _name = 'ElRadio'
+    if (type === 'button') _name = 'ElRadioButton'
+    return list.map(item => {
+        return h(components[_name], {
+            label: item.value,
+            disabled: Object.prototype.hasOwnProperty.call(item, 'disabled') ? item.disabled : false
+        }, () => item.label)
     })
 }
