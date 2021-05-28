@@ -151,15 +151,20 @@ export default defineComponent({
         }
 
         const test = () => {
-            // console.log(fc.value.form.age = 20)
-            options.ui[2].children[0].field.data = [
+            fc.value.setUIData('type', 'title', '类型2')
+            fc.value.setUIData('type', 'data', [
                 { value: '1', label: '1' },
                 { value: '2', label: '2' },
                 { value: '3', label: '3' },
                 { value: '4', label: '4' },
                 { value: '5', label: '5' },
-            ]
-            fc.value.forceUpdate()
+            ])
+
+            setTimeout(() => {
+                fc.value.setData('type', ['3'])
+                fc.value.setData('age', 30)
+                fc.value.setData('name', 'liwei')
+            }, 2000)
         }
         return {
             fc,

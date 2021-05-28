@@ -87,6 +87,7 @@ export const generaterFormAndRules = ui => {
 export const generaterOptions = (list = []) => {
     return list.map(item => {
         return h(components.ElOption, {
+            key: item.value,
             value: item.value,
             label: item.label,
             disabled: Object.prototype.hasOwnProperty.call(item, 'disabled') ? item.disabled : false
