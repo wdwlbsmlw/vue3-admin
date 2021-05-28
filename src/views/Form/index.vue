@@ -1,6 +1,12 @@
 <template>
     <div>
-        <form-create ref="fc" v-model="form" :options="options" @submit="onSubmit"></form-create>
+        <form-create ref="fc" v-model="form" :options="options" @submit="onSubmit">
+            <template v-slot:up="{form}">
+                <div>
+                    <el-input v-model="form['up']"></el-input>
+                </div>
+            </template>
+        </form-create>
 
         <el-button @click="test">test</el-button>
     </div>
@@ -139,6 +145,19 @@ export default defineComponent({
                                     { value: '1', label: '1' },
                                     { value: '2', label: '2' },
                                 ],
+                            },
+                        },
+                        {
+                            type: 'col',
+                            hidden: false,
+                            props: {
+                                span: 12, // undefined
+                            },
+                            field: {
+                                dataType: 'String',
+                                key: 'up',
+                                type: 'slot',
+                                title: 'UP'
                             },
                         },
                     ],

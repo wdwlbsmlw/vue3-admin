@@ -37,7 +37,9 @@ export default defineComponent({
                         style: {
                             display: col.hidden ? 'none' : 'block'
                         }
-                    }, () => h(components[_tagname], {
+                    }, () => col.field.type === 'slot' ? h(components.ElCol, col.props, () => {
+                            return ctx.$slots[col.field.key]({value: form[col.field.key], form, key: col.field.key})
+                        }) : h(components[_tagname], {
                         modelValue: form[col.field.key],
                         ...col.field.props,
                         onInput: val => {
@@ -69,6 +71,7 @@ export default defineComponent({
             return _list
         }
 
+        // 修改UI配置
         const setUIData = (key, field, value) => {
             console.log(key, field, value)
             props.options.ui.forEach(row => {
@@ -78,6 +81,7 @@ export default defineComponent({
             })
         }
 
+        // 修改FormData
         const setData = (key, val) => {
             if (!ctx.$utils.hasKey(form, key)) return
             form[key] = val
